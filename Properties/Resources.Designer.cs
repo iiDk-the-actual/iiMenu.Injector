@@ -10,8 +10,11 @@
 
 namespace iiMenu.Injector.Properties {
     using System;
-    
-    
+    using System.Drawing.Text;
+    using System.Reflection;
+    using System.Runtime.InteropServices;
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -87,6 +90,31 @@ namespace iiMenu.Injector.Properties {
             get {
                 object obj = ResourceManager.GetObject("success", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        internal static FontFamily AGENCYR
+        {
+            get
+            {
+
+                var assembly = Assembly.GetExecutingAssembly();
+                using Stream fontStream = assembly.GetManifestResourceStream("iiMenu.Injector.Resources.AGENCYR.TTF");
+                if (fontStream == null)
+                    throw new Exception("Font resource not found");
+
+                byte[] fontData = new byte[fontStream.Length];
+                fontStream.Read(fontData, 0, (int)fontStream.Length);
+
+                IntPtr fontPtr = Marshal.AllocCoTaskMem(fontData.Length);
+                Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
+
+                var privateFontCollection = new PrivateFontCollection();
+                privateFontCollection.AddMemoryFont(fontPtr, fontData.Length);
+
+                Marshal.FreeCoTaskMem(fontPtr);
+
+                return privateFontCollection.Families[0];
             }
         }
     }

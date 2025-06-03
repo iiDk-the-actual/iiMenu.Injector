@@ -9,12 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\AGENCYB.TTF" />
     <None Remove="Resources\AGENCYR.TTF" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\AGENCYB.TTF" />
     <EmbeddedResource Include="Resources\AGENCYR.TTF" />
   </ItemGroup>
 

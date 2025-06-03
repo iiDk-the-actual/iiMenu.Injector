@@ -64,7 +64,7 @@ namespace iiMenu.Injector
             Close.BackColor = Color.FromArgb(128, 64, 0);
             Close.FlatAppearance.BorderSize = 0;
             Close.FlatStyle = FlatStyle.Flat;
-            Close.Font = new Font("Arial Narrow", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Close.Font = new Font(Properties.Resources.AGENCYR, 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Close.ForeColor = Color.Transparent;
             Close.Location = new Point(412, 2);
             Close.Name = "Close";
@@ -78,7 +78,7 @@ namespace iiMenu.Injector
             // 
             VersionTitleText.AutoSize = true;
             VersionTitleText.BackColor = Color.Transparent;
-            VersionTitleText.Font = new Font("Agency FB", 15.75F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            VersionTitleText.Font = new Font(Properties.Resources.AGENCYR, 15.75F, FontStyle.Italic, GraphicsUnit.Point, 0);
             VersionTitleText.ForeColor = Color.NavajoWhite;
             VersionTitleText.Location = new Point(145, 1);
             VersionTitleText.Name = "VersionTitleText";
@@ -106,7 +106,7 @@ namespace iiMenu.Injector
             // 
             Title.AutoSize = true;
             Title.BackColor = Color.Transparent;
-            Title.Font = new Font("Agency FB", 16F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            Title.Font = new Font(Properties.Resources.AGENCYR, 16F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             Title.ForeColor = Color.White;
             Title.Location = new Point(27, 0);
             Title.Name = "Title";
@@ -130,7 +130,7 @@ namespace iiMenu.Injector
             // InjectStatus
             // 
             InjectStatus.BackColor = Color.Transparent;
-            InjectStatus.Font = new Font("Agency FB", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            InjectStatus.Font = new Font(Properties.Resources.AGENCYR, 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             InjectStatus.ForeColor = Color.White;
             InjectStatus.Location = new Point(77, 96);
             InjectStatus.Name = "InjectStatus";
@@ -143,7 +143,7 @@ namespace iiMenu.Injector
             // VersionText
             // 
             VersionText.BackColor = Color.Transparent;
-            VersionText.Font = new Font("Agency FB", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            VersionText.Font = new Font(Properties.Resources.AGENCYR, 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             VersionText.ForeColor = Color.White;
             VersionText.Location = new Point(142, 37);
             VersionText.Name = "VersionText";
@@ -156,7 +156,7 @@ namespace iiMenu.Injector
             // 
             DescriptionBox.BackColor = Color.FromArgb(90, 40, 0);
             DescriptionBox.BorderStyle = BorderStyle.None;
-            DescriptionBox.Font = new Font("Agency FB", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            DescriptionBox.Font = new Font(Properties.Resources.AGENCYR, 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             DescriptionBox.ForeColor = Color.White;
             DescriptionBox.Location = new Point(12, 73);
             DescriptionBox.Name = "DescriptionBox";
@@ -172,7 +172,7 @@ namespace iiMenu.Injector
             Inject.BackColor = Color.FromArgb(255, 128, 0);
             Inject.FlatAppearance.BorderSize = 0;
             Inject.FlatStyle = FlatStyle.Flat;
-            Inject.Font = new Font("Agency FB", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            Inject.Font = new Font(Properties.Resources.AGENCYR, 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             Inject.ForeColor = Color.White;
             Inject.Location = new Point(12, 304);
             Inject.Name = "Inject";
@@ -198,7 +198,7 @@ namespace iiMenu.Injector
             // LoadingBarText
             // 
             LoadingBarText.BackColor = Color.DarkOrange;
-            LoadingBarText.Font = new Font("Agency FB", 14.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            LoadingBarText.Font = new Font(Properties.Resources.AGENCYR, 14.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
             LoadingBarText.ForeColor = Color.White;
             LoadingBarText.ImageAlign = ContentAlignment.TopLeft;
             LoadingBarText.Location = new Point(3, 3);
