@@ -83,28 +83,8 @@ namespace iiMenu.Injector
                 string menuPath = Path.Combine(smiFolder, "iis_Stupid_Menu.dll");
                 using (WebClient client = new())
                 {
-                    client.Headers.Add("User-Agent", "CSharpApp");
-
-                    string json = await client.DownloadStringTaskAsync("https://api.github.com/repos/iiDk-the-actual/iis.Stupid.Menu/releases/latest");
-
-                    using (JsonDocument doc = JsonDocument.Parse(json))
-                    {
-                        var assets = doc.RootElement.GetProperty("assets");
-                        foreach (var asset in assets.EnumerateArray())
-                        {
-                            string name = asset.GetProperty("name").GetString();
-                            if (name.EndsWith("iis_Stupid_Menu.dll"))
-                            {
-                                SetLoadingStatus(0.7f, "Downloading latest release");
-
-                                string downloadUrl = asset.GetProperty("browser_download_url").GetString();
-                                await client.DownloadFileTaskAsync(downloadUrl, menuPath);
-                            }
-                        }
-                    }
+                    await client.DownloadFileTaskAsync("https://github.com/iiDk-the-actual/iis.Stupid.Menu/releases/latest/download/iis_Stupid_Menu.dll", menuPath); 
                 }
-
-                SetLoadingStatus(0.9f, "Injecting with SharpMonoInjector");
 
                 if (!File.Exists(menuPath))
                 {
@@ -112,6 +92,8 @@ namespace iiMenu.Injector
                     closeApplication();
                     return;
                 }
+
+                SetLoadingStatus(0.9f, "Injecting with SharpMonoInjector");
 
                 var process = new Process
                 {
