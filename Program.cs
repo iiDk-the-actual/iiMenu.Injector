@@ -2,12 +2,12 @@ namespace iiMenu.Injector
 {
     internal static class Program
     {
-        private static Form1 mainForm = null;
+        private static iisStupidMenu mainForm;
         [STAThread]
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            mainForm = new Form1();
+            mainForm = new iisStupidMenu();
             Application.Run(mainForm);
         }
     }

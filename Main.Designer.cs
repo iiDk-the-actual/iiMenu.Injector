@@ -1,10 +1,12 @@
-﻿using System.Drawing.Text;
+﻿using System.Diagnostics;
+using System.Drawing.Text;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 namespace iiMenu.Injector
 {
-    partial class Form1
+    partial class iisStupidMenu
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -27,19 +29,25 @@ namespace iiMenu.Injector
         {
             DragBar = new Panel();
             Close = new Button();
-            label1 = new Label();
+            VersionTitleText = new Label();
             Icon = new Panel();
             Title = new Label();
-            panel1 = new Panel();
-            Loadingtext = new Label();
+            LoadingImage = new Panel();
+            InjectStatus = new Label();
+            VersionText = new Label();
+            DescriptionBox = new RichTextBox();
+            Inject = new Button();
+            LoadingBarBackground = new Panel();
+            LoadingBarText = new Label();
             DragBar.SuspendLayout();
+            LoadingBarBackground.SuspendLayout();
             SuspendLayout();
             // 
             // DragBar
             // 
             DragBar.BackColor = Color.FromArgb(255, 128, 0);
             DragBar.Controls.Add(Close);
-            DragBar.Controls.Add(label1);
+            DragBar.Controls.Add(VersionTitleText);
             DragBar.Controls.Add(Icon);
             DragBar.Controls.Add(Title);
             DragBar.ImeMode = ImeMode.Off;
@@ -64,19 +72,22 @@ namespace iiMenu.Injector
             Close.TabIndex = 3;
             Close.Text = "X";
             Close.UseVisualStyleBackColor = false;
-            Close.Click += button1_Click;
+            Close.Click += closeApplication;
             // 
-            // label1
+            // VersionTitleText
             // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Agency FB", 15.75F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.NavajoWhite;
-            label1.Location = new Point(145, 1);
-            label1.Name = "label1";
-            label1.Size = new Size(117, 25);
-            label1.TabIndex = 2;
-            label1.Text = "Version Loading...";
+            VersionTitleText.AutoSize = true;
+            VersionTitleText.BackColor = Color.Transparent;
+            VersionTitleText.Font = new Font("Agency FB", 15.75F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            VersionTitleText.ForeColor = Color.NavajoWhite;
+            VersionTitleText.Location = new Point(145, 1);
+            VersionTitleText.Name = "VersionTitleText";
+            VersionTitleText.Size = new Size(117, 25);
+            VersionTitleText.TabIndex = 2;
+            VersionTitleText.Text = "Version Loading...";
+            VersionTitleText.MouseDown += mouseDown_Event;
+            VersionTitleText.MouseMove += mouseMove_event;
+            VersionTitleText.MouseUp += mouseUp_event;
             // 
             // Icon
             // 
@@ -87,6 +98,9 @@ namespace iiMenu.Injector
             Icon.Name = "Icon";
             Icon.Size = new Size(26, 26);
             Icon.TabIndex = 1;
+            Icon.MouseDown += mouseDown_Event;
+            Icon.MouseMove += mouseMove_event;
+            Icon.MouseUp += mouseUp_event;
             // 
             // Title
             // 
@@ -99,54 +113,128 @@ namespace iiMenu.Injector
             Title.Size = new Size(122, 26);
             Title.TabIndex = 0;
             Title.Text = "ii's Stupid Menu";
-            Title.Click += label1_Click;
+            Title.MouseDown += mouseDown_Event;
+            Title.MouseMove += mouseMove_event;
+            Title.MouseUp += mouseUp_event;
             // 
-            // panel1
+            // LoadingImage
             // 
-            panel1.BackColor = Color.Transparent;
-            panel1.BackgroundImage = Properties.Resources.load;
-            originalLoadingImage = Properties.Resources.load;
-            panel1.BackgroundImageLayout = ImageLayout.Stretch;
-            panel1.Location = new Point(125, 114);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(200, 200);
-            panel1.TabIndex = 1;
+            LoadingImage.BackColor = Color.Transparent;
+            LoadingImage.BackgroundImage = Properties.Resources.load;
+            LoadingImage.BackgroundImageLayout = ImageLayout.Stretch;
+            LoadingImage.Location = new Point(133, 122);
+            LoadingImage.Name = "LoadingImage";
+            LoadingImage.Size = new Size(184, 184);
+            LoadingImage.TabIndex = 1;
             // 
-            // Loadingtext
+            // InjectStatus
             // 
-            Loadingtext.AutoSize = true;
-            Loadingtext.BackColor = Color.Transparent;
-            Loadingtext.Font = new Font("Agency FB", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            Loadingtext.ForeColor = Color.White;
-            Loadingtext.Location = new Point(142, 37);
-            Loadingtext.Name = "Loadingtext";
-            Loadingtext.Size = new Size(170, 59);
-            Loadingtext.TabIndex = 4;
-            Loadingtext.Text = "Loading...";
-            Loadingtext.Click += label2_Click;
+            InjectStatus.BackColor = Color.Transparent;
+            InjectStatus.Font = new Font("Agency FB", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            InjectStatus.ForeColor = Color.White;
+            InjectStatus.Location = new Point(77, 96);
+            InjectStatus.Name = "InjectStatus";
+            InjectStatus.Size = new Size(300, 25);
+            InjectStatus.TabIndex = 8;
+            InjectStatus.Text = "Downloading SharpMonoInjector";
+            InjectStatus.TextAlign = ContentAlignment.TopCenter;
+            InjectStatus.Visible = false;
             // 
-            // Form1
+            // VersionText
+            // 
+            VersionText.BackColor = Color.Transparent;
+            VersionText.Font = new Font("Agency FB", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            VersionText.ForeColor = Color.White;
+            VersionText.Location = new Point(142, 37);
+            VersionText.Name = "VersionText";
+            VersionText.Size = new Size(170, 59);
+            VersionText.TabIndex = 4;
+            VersionText.Text = "Loading...";
+            VersionText.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // DescriptionBox
+            // 
+            DescriptionBox.BackColor = Color.FromArgb(90, 40, 0);
+            DescriptionBox.BorderStyle = BorderStyle.None;
+            DescriptionBox.Font = new Font("Agency FB", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            DescriptionBox.ForeColor = Color.White;
+            DescriptionBox.Location = new Point(12, 73);
+            DescriptionBox.Name = "DescriptionBox";
+            DescriptionBox.ReadOnly = true;
+            DescriptionBox.ScrollBars = RichTextBoxScrollBars.Vertical;
+            DescriptionBox.Size = new Size(416, 225);
+            DescriptionBox.TabIndex = 5;
+            DescriptionBox.Text = "";
+            DescriptionBox.Visible = false;
+            // 
+            // Inject
+            // 
+            Inject.BackColor = Color.FromArgb(255, 128, 0);
+            Inject.FlatAppearance.BorderSize = 0;
+            Inject.FlatStyle = FlatStyle.Flat;
+            Inject.Font = new Font("Agency FB", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            Inject.ForeColor = Color.White;
+            Inject.Location = new Point(12, 304);
+            Inject.Name = "Inject";
+            Inject.Size = new Size(416, 29);
+            Inject.TabIndex = 6;
+            Inject.Text = "Inject";
+            Inject.UseVisualStyleBackColor = false;
+            Inject.Visible = false;
+            Inject.MouseClick += onClickInject;
+            Inject.MouseEnter += onHover;
+            Inject.MouseLeave += onLeave;
+            // 
+            // LoadingBarBackground
+            // 
+            LoadingBarBackground.BackColor = Color.FromArgb(90, 40, 0);
+            LoadingBarBackground.Controls.Add(LoadingBarText);
+            LoadingBarBackground.Location = new Point(12, 304);
+            LoadingBarBackground.Name = "LoadingBarBackground";
+            LoadingBarBackground.Size = new Size(416, 29);
+            LoadingBarBackground.TabIndex = 7;
+            LoadingBarBackground.Visible = false;
+            // 
+            // LoadingBarText
+            // 
+            LoadingBarText.BackColor = Color.DarkOrange;
+            LoadingBarText.Font = new Font("Agency FB", 14.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            LoadingBarText.ForeColor = Color.White;
+            LoadingBarText.ImageAlign = ContentAlignment.TopLeft;
+            LoadingBarText.Location = new Point(3, 3);
+            LoadingBarText.Name = "LoadingBarText";
+            LoadingBarText.Size = new Size(410, 23);
+            LoadingBarText.TabIndex = 0;
+            LoadingBarText.Text = "100% - Injected";
+            LoadingBarText.TextAlign = ContentAlignment.MiddleCenter;
+            LoadingBarText.Visible = false;
+            // 
+            // iisStupidMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(128, 64, 0);
             ClientSize = new Size(440, 340);
-            Controls.Add(Loadingtext);
-            Controls.Add(panel1);
+            Controls.Add(InjectStatus);
+            Controls.Add(LoadingBarBackground);
+            Controls.Add(Inject);
+            Controls.Add(DescriptionBox);
+            Controls.Add(VersionText);
+            Controls.Add(LoadingImage);
             Controls.Add(DragBar);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "Form1";
-            Text = "Form1";
+            Name = "iisStupidMenu";
+            Text = "ii's Stupid Menu";
             DragBar.ResumeLayout(false);
             DragBar.PerformLayout();
+            LoadingBarBackground.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         private void StartRotation()
         {
             originalLoadingImage = Properties.Resources.load;
-            panel1.BackgroundImage = originalLoadingImage;
+            LoadingImage.BackgroundImage = originalLoadingImage;
 
             rotationTimer = new System.Windows.Forms.Timer();
             rotationTimer.Interval = 50;
@@ -158,12 +246,139 @@ namespace iiMenu.Injector
 
                 var rotated = RotateImage(originalLoadingImage, rotationAngle);
 
-                var old = panel1.BackgroundImage;
-                panel1.BackgroundImage = rotated;
+                var old = LoadingImage.BackgroundImage;
+                LoadingImage.BackgroundImage = rotated;
                 if (old != null && old != originalLoadingImage)
                     old.Dispose();
             };
             rotationTimer.Start();
+        }
+
+        private Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
+        private void IconBob()
+        {
+            originalIconImage = Properties.Resources.cone;
+            Icon.BackgroundImage = originalIconImage;
+
+            iconRotationTimer = new System.Windows.Forms.Timer();
+            iconRotationTimer.Interval = 10;
+            iconRotationTimer.Tick += (s, e) =>
+            {
+                float rotation = MathF.Sin((float)stopwatch.Elapsed.TotalSeconds * 3f) * 10f;
+                var rotated = RotateImage(originalIconImage, rotation);
+
+                var old = Icon.BackgroundImage;
+                Icon.BackgroundImage = rotated;
+                if (old != null && old != originalIconImage)
+                    old.Dispose();
+            };
+            iconRotationTimer.Start();
+        }
+
+        public async Task GetLatest()
+        {
+            string repo = "iiDk-the-actual/iis.Stupid.Menu";
+            string url = $"https://api.github.com/repos/{repo}/releases/latest";
+
+            using HttpClient client = new HttpClient();
+
+            client.DefaultRequestHeaders.UserAgent.ParseAdd("CSharpApp");
+
+            try
+            {
+                string response = await client.GetStringAsync(url);
+                Newtonsoft.Json.Linq.JObject release = Newtonsoft.Json.Linq.JObject.Parse(response);
+
+                string title = release["name"]?.ToString() ?? "(no title)";
+                string description = release["body"]?.ToString() ?? "(no description)";
+
+                VersionText.Text = $"Release {title}";
+                VersionText.Font = new Font(VersionText.Font.FontFamily, 20, FontStyle.Italic);
+
+                VersionTitleText.Text = $"Version {title}";
+
+                LoadColoredText(DescriptionBox, ExtractDiffText(description));
+
+                LoadingImage.Visible = false;
+                DescriptionBox.Visible = true;
+                Inject.Visible = true;
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine($"Request error: {e.Message}");
+            }
+        }
+
+        void LoadColoredText(RichTextBox richTextBox, string input)
+        {
+            richTextBox.Clear();
+
+            using (StringReader reader = new StringReader(input))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    Color color = richTextBox.ForeColor;
+
+                    if (line.StartsWith("+"))
+                        color = Color.FromArgb(143, 242, 92);
+                    else if (line.StartsWith("-"))
+                        color = Color.FromArgb(242, 92, 92);
+
+                    richTextBox.SelectionStart = richTextBox.TextLength;
+                    richTextBox.SelectionLength = 0;
+                    richTextBox.SelectionColor = color;
+
+                    richTextBox.AppendText(line + Environment.NewLine);
+                }
+
+                richTextBox.SelectionColor = richTextBox.ForeColor;
+            }
+        }
+
+        public class NoScrollBarRichTextBox : RichTextBox
+        {
+            const int WM_NCPAINT = 0x85;
+            const int WM_PAINT = 0xF;
+            const int WM_VSCROLL = 0x115;
+            const int WM_HSCROLL = 0x114;
+
+            const int GWL_STYLE = -16;
+            const int WS_VSCROLL = 0x00200000;
+            const int WS_HSCROLL = 0x00100000;
+
+            [DllImport("user32.dll")]
+            static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+            [DllImport("user32.dll")]
+            static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+            [DllImport("user32.dll")]
+            static extern bool ShowScrollBar(IntPtr hWnd, int wBar, bool bShow);
+
+            const int SB_BOTH = 3;
+
+            private void HideScrollBars()
+            {
+                IntPtr handle = this.Handle;
+                int style = GetWindowLong(handle, GWL_STYLE);
+                style &= ~WS_VSCROLL; // remove vertical scrollbar style
+                style &= ~WS_HSCROLL; // remove horizontal scrollbar style
+                SetWindowLong(handle, GWL_STYLE, style);
+                ShowScrollBar(handle, SB_BOTH, false);
+            }
+
+            protected override void WndProc(ref Message m)
+            {
+                base.WndProc(ref m);
+
+                // After relevant messages, hide the scrollbars again
+                if (m.Msg == WM_NCPAINT || m.Msg == WM_PAINT || m.Msg == WM_VSCROLL || m.Msg == WM_HSCROLL)
+                {
+                    HideScrollBars();
+                }
+            }
         }
 
         #endregion
@@ -192,14 +407,16 @@ namespace iiMenu.Injector
 
         private Label Title;
         public new Panel Icon;
-        private Label label1;
+        private Label VersionTitleText;
         private new Button Close;
-        private Panel panel1;
-        private Label Loadingtext;
+        private Panel LoadingImage;
+        private Label VersionText;
 
         private System.Windows.Forms.Timer rotationTimer;
+        private System.Windows.Forms.Timer iconRotationTimer;
         private float rotationAngle = 0f;
         private Image originalLoadingImage;
+        private Image originalIconImage;
 
         private Image RotateImage(Image img, float angle)
         {
@@ -217,5 +434,28 @@ namespace iiMenu.Injector
 
             return bmp;
         }
+
+        string ExtractDiffText(string input)
+        {
+            var pattern = @"```diff\s*(.*?)```";
+            var match = Regex.Match(input, pattern, RegexOptions.Singleline);
+            if (match.Success)
+            {
+                return match.Groups[1].Value.Trim();
+            }
+            return null;
+        }
+
+        public bool IsGorillaTagRunning()
+        {
+            Process[] processes = Process.GetProcessesByName("Gorilla Tag");
+            return processes.Length > 0;
+        }
+
+        private RichTextBox DescriptionBox;
+        public Button Inject;
+        private Panel LoadingBarBackground;
+        private Label LoadingBarText;
+        private Label InjectStatus;
     }
 }
