@@ -67,22 +67,17 @@ namespace iiMenu.Injector
                     await client.DownloadFileTaskAsync("https://github.com/warbler/SharpMonoInjector/releases/download/v2.2/SharpMonoInjector.Console.zip", zipPath);
                 }
 
-                await Task.Delay(500);
-
-                SetLoadingStatus(0.3f, "Extracting ZIP");
+                SetLoadingStatus(0.4f, "Extracting ZIP");
 
                 ZipFile.ExtractToDirectory(zipPath, extractPath);
 
                 string smiFolder = Path.Combine(extractPath, "SharpMonoInjector.Console");
                 string smiPath = Path.Combine(smiFolder, "smi.exe");
 
-                await Task.Delay(500);
-
-                SetLoadingStatus(0.5f, "Fetching release info");
-
                 string menuPath = Path.Combine(smiFolder, "iis_Stupid_Menu.dll");
                 using (WebClient client = new())
                 {
+                    SetLoadingStatus(0.6f, "Downloading latest release");
                     await client.DownloadFileTaskAsync("https://github.com/iiDk-the-actual/iis.Stupid.Menu/releases/latest/download/iis_Stupid_Menu.dll", menuPath); 
                 }
 
@@ -93,7 +88,7 @@ namespace iiMenu.Injector
                     return;
                 }
 
-                SetLoadingStatus(0.9f, "Injecting with SharpMonoInjector");
+                SetLoadingStatus(0.8f, "Injecting with SharpMonoInjector");
 
                 var process = new Process
                 {

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using iiMenu.Injector.Properties;
+using System.Diagnostics;
 using System.Drawing.Text;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -27,10 +28,11 @@ namespace iiMenu.Injector
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(iisStupidMenu));
             DragBar = new Panel();
             Close = new Button();
             VersionTitleText = new Label();
-            Icon = new Panel();
+            IconImage = new Panel();
             Title = new Label();
             LoadingImage = new Panel();
             InjectStatus = new Label();
@@ -48,7 +50,7 @@ namespace iiMenu.Injector
             DragBar.BackColor = Color.FromArgb(255, 128, 0);
             DragBar.Controls.Add(Close);
             DragBar.Controls.Add(VersionTitleText);
-            DragBar.Controls.Add(Icon);
+            DragBar.Controls.Add(IconImage);
             DragBar.Controls.Add(Title);
             DragBar.ImeMode = ImeMode.Off;
             DragBar.Location = new Point(0, 0);
@@ -91,16 +93,16 @@ namespace iiMenu.Injector
             // 
             // Icon
             // 
-            Icon.BackColor = Color.Transparent;
-            Icon.BackgroundImage = Properties.Resources.cone;
-            Icon.BackgroundImageLayout = ImageLayout.Stretch;
-            Icon.Location = new Point(2, 2);
-            Icon.Name = "Icon";
-            Icon.Size = new Size(26, 26);
-            Icon.TabIndex = 1;
-            Icon.MouseDown += mouseDown_Event;
-            Icon.MouseMove += mouseMove_event;
-            Icon.MouseUp += mouseUp_event;
+            IconImage.BackColor = Color.Transparent;
+            IconImage.BackgroundImage = Properties.Resources.cone;
+            IconImage.BackgroundImageLayout = ImageLayout.Stretch;
+            IconImage.Location = new Point(2, 2);
+            IconImage.Name = "Icon";
+            IconImage.Size = new Size(26, 26);
+            IconImage.TabIndex = 1;
+            IconImage.MouseDown += mouseDown_Event;
+            IconImage.MouseMove += mouseMove_event;
+            IconImage.MouseUp += mouseUp_event;
             // 
             // Title
             // 
@@ -214,7 +216,7 @@ namespace iiMenu.Injector
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(128, 64, 0);
-            ClientSize = new Size(440, 340);
+            ClientSize = new Size(440, 345);
             Controls.Add(InjectStatus);
             Controls.Add(LoadingBarBackground);
             Controls.Add(Inject);
@@ -223,6 +225,7 @@ namespace iiMenu.Injector
             Controls.Add(LoadingImage);
             Controls.Add(DragBar);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "iisStupidMenu";
             Text = "ii's Stupid Menu";
             DragBar.ResumeLayout(false);
@@ -259,7 +262,7 @@ namespace iiMenu.Injector
         private void IconBob()
         {
             originalIconImage = Properties.Resources.cone;
-            Icon.BackgroundImage = originalIconImage;
+            IconImage.BackgroundImage = originalIconImage;
 
             iconRotationTimer = new System.Windows.Forms.Timer();
             iconRotationTimer.Interval = 10;
@@ -268,8 +271,8 @@ namespace iiMenu.Injector
                 float rotation = MathF.Sin((float)stopwatch.Elapsed.TotalSeconds * 3f) * 10f;
                 var rotated = RotateImage(originalIconImage, rotation);
 
-                var old = Icon.BackgroundImage;
-                Icon.BackgroundImage = rotated;
+                var old = IconImage.BackgroundImage;
+                IconImage.BackgroundImage = rotated;
                 if (old != null && old != originalIconImage)
                     old.Dispose();
             };
@@ -406,7 +409,7 @@ namespace iiMenu.Injector
             mouseDown = false;
 
         private Label Title;
-        public new Panel Icon;
+        public new Panel IconImage;
         private Label VersionTitleText;
         private new Button Close;
         private Panel LoadingImage;
