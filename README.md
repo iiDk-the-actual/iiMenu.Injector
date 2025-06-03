@@ -1,5 +1,5 @@
 # iiMenu.Injector
-An injector version of ii's Stupid Menu for Gorilla Tag
+An injector version of [ii's Stupid Menu](https://github.com/iiDk-the-actual/iis.Stupid.Menu) for Gorilla Tag
 
 <img src="LoaderScreenshot.png">
 
