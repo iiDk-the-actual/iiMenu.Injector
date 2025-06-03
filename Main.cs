@@ -34,6 +34,9 @@ namespace iiMenu.Injector
 
         private async Task InjectMenuAsync()
         {
+            if (!IsGorillaTagRunning())
+                return;
+
             try
             {
                 Inject.Visible = false;
