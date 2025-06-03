@@ -1,5 +1,7 @@
 # iiMenu.Injector
-> An injector version of Gorilla Tag
+An injector version of Gorilla Tag
+
+<img src="LoaderScreenshot.png">
 
 ## How to Use
 1. Download the latest release
