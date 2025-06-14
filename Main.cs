@@ -90,7 +90,7 @@ namespace iiMenu.Injector
 
                 SetLoadingStatus(0.8f, "Injecting with SharpMonoInjector");
 
-                var process = new Process
+                Process process = new Process
                 {
                     StartInfo = new ProcessStartInfo
                     {
